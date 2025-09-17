@@ -81,3 +81,7 @@ python src/app.py
 ### 시스템 플로우
 ![systemflow](https://github.com/user-attachments/assets/071d904f-a884-4e82-b9b9-20459cb43572)
 ~~설명
+
+---
+
+## 6. 수집한 데이터 및 전처리 요약
