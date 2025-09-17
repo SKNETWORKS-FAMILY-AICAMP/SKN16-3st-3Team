@@ -20,7 +20,14 @@
 ---
 
 ## 2. 기술 스택
-~~
+| 카테고리 | 기술 스택 |
+| :--- | :--- |
+| **사용 언어** | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) |
+| **LLM** | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-0092B9?logo=langchain&logoColor=white) |
+| **벡터 데이터베이스** | ![ChromaDB](https://img.shields.io/badge/ChromaDB-5542D0) |
+| **데이터베이스** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white) |
+| **인터페이스(UI)** | ![Gradio](https://img.shields.io/badge/Gradio-FF7C00?logo=gradio&logoColor=white) |
+| **형상 관리** | ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white) |
 
 ---
 
