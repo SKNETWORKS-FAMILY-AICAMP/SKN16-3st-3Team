@@ -9,7 +9,7 @@
 ## 1. 프로젝트 개요
 
 ### 프로젝트 소개
-**교통사고 전문 챗봇 '챗문철'**
+>**교통사고 전문 챗봇 '챗문철'**
 
 ### 프로젝트 필요성
 ~~
@@ -45,21 +45,31 @@ SKN16_3rd_3Team/
 └── README.md                  # 프로젝트 설명
 
 ```
-## 설치 및 실행
-### 환경설정
-~~
-### API 키 설정
-~~
-
 ---
 
-## 4. 시스템 아키텍처 및 처리 흐름
+## 4. 설치 및 실행
+
+### 환경설정
+```
+git clone https://github.com/Your-Username/ChatMoonCheol-Project.git
+cd ChatMoonCheol-Project
+pip install -r requirements.txt
+```
+### API 키 설정
+```
+OPENAI_API_KEY="sk-명
+```
+### 시스템 실행
+```
+python src/app.py
+```
+---
+
+## 5. 시스템 아키텍처 및 처리 흐름
 
 ### 시스템 아키텍처
 ~~사진
-
-### RAG 시스템 플로우
-~~사진
-
----
-
+~~설명
+### 시스템 플로우
+![systemflow](https://github.com/user-attachments/assets/071d904f-a884-4e82-b9b9-20459cb43572)
+~~설명
