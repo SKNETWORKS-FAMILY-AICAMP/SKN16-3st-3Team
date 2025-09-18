@@ -85,7 +85,7 @@ pip install -r requirements.txt
 ```
 ### API 키 설정
 ```
-OPENAI_API_KEY="sk-명
+OPENAI_API_KEY=""
 ```
 ### 시스템 실행
 ```
@@ -95,12 +95,40 @@ python src/app.py
 
 ## 5. 시스템 아키텍처 및 처리 흐름
 
-### 시스템 아키텍처
-~~사진
-~~설명
-### 시스템 플로우
+### ✅ 시스템 아키텍처
+ChatMoonCheol은 RAG(Retrieval-Augmented Generation) 기반 구조로 설계됨
+<img width="2654" height="3840" alt="system architecture" src="https://github.com/user-attachments/assets/54700883-d95c-43f3-8e7f-edd7cea6ed9f" />
+
+### ✅ 시스템 플로우
+📌 구성요소
+1. **질문 입력**   
+사용자가 자연어로 질문이나 요청을 입력
+
+2. **UI 인터페이스**   
+Gradio UI를 통해 입력을 시스템으로 전달
+
+3. **입력 처리**   
+사용자의 입력을 전처리하여 텍스트/이미지 등 유형에 따라 분류
+
+4. **문서 검색 (RAG DB & Database)**   
+RAG DB와 Database를 통해 의미 유사도가 높은 문서나 데이터를 검색
+
+5. **AI 처리 (Image AI / AI 응답생성)**   
+이미지 관련 요청은 Image AI에서 처리   
+텍스트 관련 요청은 AI 응답생성 모듈에서 답변 초안 작성
+
+6. **분석기**   
+AI 응답과 데이터 검색 결과를 분석·보완하여 답변의 정확성과 품질을 향상
+
+7. **최종 응답 생성**   
+분석된 결과를 종합해 최종 응답을 생성
+
+8. **사용자 응답 출력**   
+사용자 화면에 구조화된 최종 답변을 전달
+
 ![systemflow](https://github.com/user-attachments/assets/071d904f-a884-4e82-b9b9-20459cb43572)
-~~설명
+> **전체 구조 요약:**   
+사용자 입력 → 인터페이스(UI) → 메인 처리 → (AI/DB 활용) → 분석 → 응답 생성 → 사용자 응답
 
 ---
 
