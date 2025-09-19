@@ -82,17 +82,18 @@ SKN16_3rd_3Team/
 ## 4. 설치 및 실행
 
 ### 환경설정
-```
+```bash
 git clone https://github.com/Your-Username/ChatMoonCheol-Project.git
 cd ChatMoonCheol-Project
 pip install -r requirements.txt
 ```
 ### API 키 설정
-```
-OPENAI_API_KEY=""
+```bash
+# .env 파일 생성
+OPENAI_API_KEY="your_openai_api_key_here"
 ```
 ### 시스템 실행
-```
+```bash
 python src/app.py
 ```
 ---
