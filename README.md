@@ -358,6 +358,13 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 | Plumber                 |           0.9678           |           0.9885             |            0.9103               |
 | PyPDF                   |           0.8541           |           0.9112             |            0.7025               |
 
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/3d1edeaa-d755-4f0a-b630-e4f0ca1df932" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/f7e6acf4-7e3f-469d-a3be-e56bc7c1fa22" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/101898c4-d575-4f18-b5a1-b18a00626b3f" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/a750937d-7c9c-4145-a0fa-04c6ca15aa78" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/b46e870e-0e32-4b57-bd88-7cc33a49c92e" />
+
+
 ### ⚖️ 과실비율 예측 검증
 
 | 구분        | 평균 근접도(%) | 과실비율 응답률(%) |법률 정확도|
