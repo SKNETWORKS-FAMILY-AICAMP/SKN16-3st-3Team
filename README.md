@@ -364,7 +364,6 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/a750937d-7c9c-4145-a0fa-04c6ca15aa78" />
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/b46e870e-0e32-4b57-bd88-7cc33a49c92e" />
 
-
 ### ⚖️ 과실비율 예측 검증
 
 | 구분        | 평균 근접도(%) | 과실비율 응답률(%) |법률 정확도|
