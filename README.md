@@ -45,36 +45,40 @@ RAG 기술을 활용하여 교통사고 발생 시 법률 상담을 제공하는
 ---
 
 ## 2. 기술 스택
+
 | 카테고리 | 기술 스택 |
 | :--- | :--- |
 | **사용 언어** | ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white) |
-| **LLM** | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white) ![ChatGPT](https://img.shields.io/badge/ChatGPT-74AA9C?logo=openai&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-0092B9?logo=langchain&logoColor=white) |
-| **벡터 데이터베이스** | ![ChromaDB](https://img.shields.io/badge/ChromaDB-5542D0) |
-| **임베딩 모델** | ![OpenAI Embeddings](https://img.shields.io/badge/OpenAI_Embeddings-412991?logo=openai&logoColor=white) |
-| **인터페이스(UI)** | ![Gradio](https://img.shields.io/badge/Gradio-FF7C00?logo=gradio&logoColor=white) |
-| **형상 관리** | ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white) ![GitHub](https://img.shields.io/badge/GitHub-181717?logo=github&logoColor=white) ![Google Drive](https://img.shields.io/badge/Google_Drive-4481ED?logo=googledrive&logoColor=white) |
+| **AI & LLM** | ![OpenAI](https://img.shields.io/badge/OpenAI-412991?logo=openai&logoColor=white) ![LangChain](https://img.shields.io/badge/LangChain-0092B9?logo=langchain&logoColor=white) |
+| **벡터 데이터베이스** | ![ChromaDB](https://img.shields.io/badge/ChromaDB-5542D0) ![OpenAI Embeddings](https://img.shields.io/badge/OpenAI_Embeddings-412991?logo=openai&logoColor=white) |
+| **웹 인터페이스** | ![Gradio](https://img.shields.io/badge/Gradio-FF7C00?logo=gradio&logoColor=white) |
+| **데이터베이스** | ![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white) |
+| **문서 처리** | ![PyPDF](https://img.shields.io/badge/PyPDF-FFD43B) ![python-docx](https://img.shields.io/badge/python--docx-3776AB) |
+| **보안 & 인코딩** | ![bcrypt](https://img.shields.io/badge/bcrypt-00BFFF) ![chardet](https://img.shields.io/badge/chardet-FF4500) |
+| **데이터 분석** | ![pandas](https://img.shields.io/badge/pandas-150458?logo=pandas&logoColor=white) ![openpyxl](https://img.shields.io/badge/openpyxl-1C6BA0) |
+| **배포 & 관리** | ![Google Colab](https://img.shields.io/badge/Google_Colab-F9AB00?logo=googlecolab&logoColor=white) ![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white) |
 
 ---
 
 ## 3. 프로젝트 구조
 
 ```text
-SKN16_3rd_3Team/ 
-├── src/                       # 메인 소스 코드
-│   ├── app.py                 # Gradio UI 및 애플리케이션 실행
-│   ├── core.py                # 메인 시스템 로직
-│   ├── database.py            # 데이터베이스 관리
-│   ├── rag_system.py          # RAG 시스템
-│   └── analyzer.py            # 대화 분석기
+ChatMoonCheol/
+├── chatmooncheol_redesigned.py    # 🎯 메인 애플리케이션 (올인원 구조)
+│   ├── DatabaseManager            # 🗄️ SQLite3 통합 데이터베이스 관리
+│   ├── OptimizedRAGSystem         # 🔍 문서 검색 및 임베딩 시스템
+│   ├── ConversationAnalyzer       # 🧠 대화 분석 및 14개 항목 분석
+│   └── ChatMoonCheolSystem        # ⚖️ 메인 로직 및 한문철 페르소나
 │
-├── assets/                    # 아바타 등 정적 파일
-├── data/                      # DB, 벡터 저장소 등 데이터 저장용
-│   └── .gitkeep               # 빈 디렉토리 추적
+├── .env                           # 🔐 OpenAI API 키
+├── requirements.txt               # 📦 의존성 패키지
+├── README.md                      # 📚 프로젝트 설명서
 │
-├── .env.example               # 환경변수 예시
-├── .gitignore                 # Git 추적 제외 목록
-├── requirements.txt           # 의존성 패키지
-└── README.md                  # 프로젝트 설명
+├── chatmooncheol_redesigned.db    # 🗃️ SQLite 데이터베이스
+├── chroma_db_redesigned/          # 🔍 ChromaDB 벡터 저장소
+├── uploaded_docs/                 # 📄 업로드 문서 임시 저장소
+├── assets/                        # 🖼️ UI 아바타 이미지
+└── exports/                       # 📊 Excel 내보내기 파일
 
 ```
 ---
@@ -132,6 +136,21 @@ AI 응답과 데이터 검색 결과를 분석·보완하여 답변의 정확성
 사용자 화면에 구조화된 최종 답변을 전달
 
 ![systemflow](https://github.com/user-attachments/assets/071d904f-a884-4e82-b9b9-20459cb43572)
+
+```text
+graph TD
+    A[사용자 입력] --> B[Gradio UI]
+    B --> C{입력 분류}
+    C -->|텍스트| D[RAG 검색]
+    C -->|이미지| E[GPT-4o Vision]
+    D --> F[GPT-4o 응답생성]
+    E --> F
+    F --> G[ConversationAnalyzer]
+    G --> H[14개 항목 분석]
+    H --> I[SQLite DB 저장]
+    I --> J[사용자 응답]
+```
+
 > **전체 구조 요약:**   
 사용자 입력 → 인터페이스(UI) → 메인 처리 → (AI/DB 활용) → 분석 → 응답 생성 → 사용자 응답
 
@@ -139,42 +158,103 @@ AI 응답과 데이터 검색 결과를 분석·보완하여 답변의 정확성
 
 ## 6. 핵심 기술 상세
 🤖 AI 모델 구성
-|모델 종류|	모델명	|Temperature	|Max Tokens|	용도|
+|용도|	모델|	Temperature|	Max Tokens|	특징|
 | :---: | :---: | :---: | :---: | :---: |
-|메인 대화 모델|	GPT-4o|	0.2|	1800|	일반 법률 상담 응답|
-|대화 분석 모델|GPT-4o	|0.1|	1500	|사건 분석 및 분류|
-|이미지 분석 모델|	GPT-4o Vision	|-|	500|	사고 현장 이미지 분석|
-|임베딩 모델|	OpenAI Embeddings|	-|	-	|문서 벡터화|
+|메인 대화|	GPT-4o|	0.2|	1,800	|한문철 페르소나, 법률 상담|
+|대화 분석|	GPT-4o|	0.1|	1,500	|14개 항목 분석, JSON 형식|
+|요약 생성|	GPT-4o|	0.2	|기본값	|마크다운 형식 요약|
+|이미지 분석|	GPT-4o Vision|	-	|500	|사고 현장 이미지 분석|
 
-📚 RAG 시스템 설정
-|구성 요소|	설정값|	설명|
+🎭 한문철 페르소나 특징
+* 어조: 정중하고 전문적이면서도 친근한 존댓말
+* 전문분야: 도로교통법, 과실비율 판정, 음주운전, 교통사고 처리절차
+* 응답 스타일: 법적 근거 명시 + 구체적 과실비율 제시
+
+📊 데이터베이스 스키마
+SQLite3 테이블 구조 (6개 테이블)
+|테이블명	|용도|	주요 필드|
 | :---: | :---: | :---: |
-|벡터 데이터베이스|	ChromaDB|	문서 임베딩 저장 및 검색|
-|유사도 검색 K값|	8 (법률 컨텍스트), 5 (일반)|검색할 유사 문서 수|
-|HNSW 공간|	cosine|	코사인 유사도 기반 검색|
-|HNSW 파라미터|	ef=200, M=16|	검색 성능 최적화|
+|users|	사용자 관리|	username, password_hash, user_type(guest/expert/admin)|
+|conversations|	대화 세션|	session_id(UUID), user_id, title, total_messages|
+|messages|	메시지 저장|	role, content, image_data, timestamp|
+|case_analysis|	사건 분석 결과|	14개 분석 항목 (아래 상세 표 참조)|
+|documents|	업로드 문서|	filename, file_type, chunk_count, processing_time|
+|document_chunks|	RAG용 청크|	document_id, chunk_text, chunk_index|
 
-📋 **문서 전처리 전략**
+🔍 14개 사건 분석 항목
+|분류|	항목|	설명	|데이터 타입|
+| :---: | :---: | :---: | :---: |
+|기본 정보	|case_type|	criminal/civil/consultation/mixed|	ENUM|
+||accident_type	|사고 유형 상세 설명	|TEXT|
+||severity_level	|minor/moderate/severe|ENUM|
+|과실 및 역할|	fault_ratio|	과실비율 (예: "70:30")|	TEXT|
+||party_role|	perpetrator/victim/witness/neutral|	ENUM|
+|법률 정보|	legal_violations	|위반 교통법규 목록|	JSON|
+||applicable_laws	|적용 법률 조항	|JSON|
+||recommended_actions|	권장 조치사항	|JSON|
+|처벌 예상|	fine_amount	|예상 벌금액|	INTEGER|
+||imprisonment_period|	예상 징역기간|	TEXT|
+||driver_license_points|	운전면허 벌점	|INTEGER|
+|기타|	settlement_amount	|예상 합의금	|INTEGER|
+||apology_needed	|반성문 필요 여부|	BOOLEAN|
+||analysis_confidence	|분석 신뢰도 (0.0~1.0) |REAL|
 
-🔄 적응형 청킹 시스템
-|전략	|청크 크기|	오버랩|	적용 조건|
-| :---: | :---: | :---: |:---: |
-|Small	|600자|	80자	|5,000자 미만 문서|
-|Medium	|1,000자|	120자|	5,000~20,000자 문서|
-|Large	|1,500자	|200자|	20,000자 이상 문서|
+🔧 핵심 기술 구현
+📚 최적화된 RAG 시스템
+적응형 청킹 전략
+|전략|	청크 크기|오버랩|	적용 조건|
+| :---: | :---: | :---: | :---: |
+|Small|	600자|	80자	|5,000자 미만 문서|
+|Medium	|1,000자|	120자	|5,000~20,000자 문서|
+|Large|	1,500자|	200자	|20,000자 이상 문서|
+
+ChromaDB 설정
+```python
+vectorstore_config = {
+    "persist_directory": "./chroma_db_redesigned",
+    "hnsw_space": "cosine",
+    "hnsw_construction_ef": 200,
+    "hnsw_M": 16
+}
+```
 
 🌐 다국어 인코딩 지원
 * 지원 인코딩: UTF-8, CP949, EUC-KR, ASCII
-* 자동 감지: chardet 기반 인코딩 추론
+* 자동 감지: chardet + 한국어 패턴 매칭
 * 신뢰도 임계값: 0.7 이상
-* 한국어 패턴 매칭: 바이트 패턴 기반 언어 감지
+* 다단계 시도: 4가지 인코딩 순차 시도
 
-📁 지원 파일 형식
-* 텍스트: .txt, .md
-* 문서: .pdf, .docx
-* 최대 파일 크기: 100MB
-* 배치 처리: 50개 청크 단위
-* 병렬 처리: 4 워커 기본값
+⚡ 성능 최적화
+* 병렬 문서 처리: ThreadPoolExecutor 4 워커
+* 스트리밍 파일 읽기: 메모리 효율성 (100MB 지원)
+* 배치 벡터 저장: 50개 청크 단위 처리
+* 중복 콘텐츠 필터링: 해시 기반 중복 제거
+
+🎨 사용자 인터페이스
+Gradio 웹 인터페이스 특징
+* 모던 디자인: 필렛 아이콘 기반 미니멀 UI
+* 반응형 웹: 모바일/태블릿 최적화
+* 아바타 이미지: GPT 스타일 채팅 인터페이스
+* 3권한 시스템: Guest/Expert/Admin 차별화
+
+주요 기능별 탭
+* 💬 AI 상담: 실시간 채팅 + 이미지 첨부
+* 📋 대화 요약: 14개 항목 분석 + 마크다운 요약
+* 📚 문서 관리: RAG용 문서 업로드 (관리자)
+* 👥 사용자 관리: 대화 통계 + Excel 내보내기 (관리자)
+
+🔐 보안 및 안전성
+보안 기능
+* 비밀번호 보안: bcrypt 해싱 (salt 포함)
+* 세션 관리: UUID 기반 고유 세션
+* SQL 인젝션 방지: 파라미터 바인딩
+* 파일 검증: SHA256 해시 기반 중복 확인
+
+에러 핸들링
+* JSON 파싱 복구: 정규식 백업 파싱
+* 인코딩 실패 대응: 다단계 인코딩 시도
+* API 호출 실패: 기본 응답으로 서비스 연속성 보장
+* 파일 처리 오류: 개별 파일 격리 처리
 
 ## 7. 데이터베이스 스키마
 📊 SQLite 데이터베이스 구조
