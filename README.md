@@ -71,20 +71,33 @@ RAG 기술을 활용하여 교통사고 발생 시 법률 상담을 제공하는
 ```text
 ChatMoonCheol/
 ├── chatmooncheol_redesigned.py    # 🎯 메인 애플리케이션 (올인원 구조)
-│   ├── DatabaseManager            # 🗄️ SQLite3 통합 데이터베이스 관리
+│   ├── DatabaseManager            # 🗄️ SQLite3 통합 데이터베이스 관리 (6개 테이블)
 │   ├── OptimizedRAGSystem         # 🔍 문서 검색 및 임베딩 시스템
-│   ├── ConversationAnalyzer       # 🧠 대화 분석 및 14개 항목 분석
+│   ├── ConversationAnalyzer       # 🧠 대화 분석 및 17개 항목 분석
 │   └── ChatMoonCheolSystem        # ⚖️ 메인 로직 및 한문철 페르소나
 │
 ├── .env                           # 🔐 OpenAI API 키
 ├── requirements.txt               # 📦 의존성 패키지
 ├── README.md                      # 📚 프로젝트 설명서
 │
-├── chatmooncheol_redesigned.db    # 🗃️ SQLite 데이터베이스
+├── chatmooncheol_redesigned.db    # 🗃️ SQLite 데이터베이스 (66개 필드)
 ├── chroma_db_redesigned/          # 🔍 ChromaDB 벡터 저장소
+│   ├── chroma.sqlite3             # 벡터 인덱스 파일
+│   └── collections/               # 컬렉션 데이터
+│
 ├── uploaded_docs/                 # 📄 업로드 문서 임시 저장소
-├── assets/                        # 🖼️ UI 아바타 이미지
-└── exports/                       # 📊 Excel 내보내기 파일
+│   ├── temp_*.pdf                 # PDF 파일들
+│   ├── temp_*.txt                 # 텍스트 파일들
+│   ├── temp_*.docx                # 워드 문서들
+│   └── temp_*.md                  # 마크다운 파일들
+│
+├── assets/                        # 🖼️ UI 정적 파일
+│   ├── my_avatar.png              # 한문철 아바타
+│   ├── user_17301067.png          # 사용자 아바타
+│   └── bot_avatar.jpg             # 봇 아바타
+│
+└── exports/                       # 📊 데이터 내보내기
+    └── chatmooncheol_data_*.xlsx  # Excel 내보내기 파일
 
 ```
 ---
@@ -167,7 +180,7 @@ graph TD
 |용도|	모델|	Temperature|	Max Tokens|	특징|
 | :---: | :---: | :---: | :---: | :---: |
 |메인 대화|	GPT-4o|	0.2|	1,800	|한문철 페르소나, 법률 상담|
-|대화 분석|	GPT-4o|	0.1|	1,500	|14개 항목 분석, JSON 형식|
+|대화 분석|	GPT-4o|	0.1|	1,500	|17개 항목 분석, JSON 형식|
 |요약 생성|	GPT-4o|	0.2	|기본값	|마크다운 형식 요약|
 |이미지 분석|	GPT-4o Vision|	-	|500	|사고 현장 이미지 분석|
 
@@ -263,50 +276,95 @@ Gradio 웹 인터페이스 특징
 * 파일 처리 오류: 개별 파일 격리 처리
 
 ## 7. 데이터베이스 스키마
-📊 SQLite 데이터베이스 구조
+📊 SQLite 데이터베이스 구조 (6개 테이블, 66개 필드)
 ```sql
--- 사용자 관리
-CREATE TABLE users (
-    id INTEGER PRIMARY KEY,
-    username TEXT UNIQUE,
-    usertype TEXT CHECK(usertype IN ('guest', 'expert', 'admin')),
-    password_hash TEXT,
-    email TEXT
+-- 👥 사용자 관리 테이블 (7개 필드)
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE NOT NULL,
+    password_hash TEXT NOT NULL,
+    user_type TEXT NOT NULL CHECK(user_type IN ('guest', 'expert', 'admin')),
+    email TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_login DATETIME
 );
 
--- 대화 세션
-CREATE TABLE conversations (
-    id INTEGER PRIMARY KEY,
+-- 💬 대화 세션 테이블 (8개 필드)
+CREATE TABLE IF NOT EXISTS conversations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER,
-    session_id TEXT UNIQUE,
-    title TEXT,
-    total_messages INTEGER DEFAULT 0
+    session_id TEXT UNIQUE NOT NULL,
+    title TEXT DEFAULT '새 상담',
+    started_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    ended_at DATETIME,
+    total_messages INTEGER DEFAULT 0,
+    case_summary TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
--- 사건 분석 결과
-CREATE TABLE case_analysis (
-    id INTEGER PRIMARY KEY,
+-- 📝 메시지 저장 테이블 (7개 필드)
+CREATE TABLE IF NOT EXISTS messages (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    conversation_id INTEGER,
+    role TEXT NOT NULL CHECK(role IN ('user', 'assistant')),
+    content TEXT NOT NULL,
+    message_type TEXT DEFAULT 'normal',
+    image_data TEXT,                          -- Base64 인코딩된 이미지
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
+);
+
+-- 🔍 사건 분석 결과 테이블 (17개 필드) ⭐ 핵심 테이블
+CREATE TABLE IF NOT EXISTS case_analysis (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     conversation_id INTEGER,
     case_type TEXT CHECK(case_type IN ('criminal', 'civil', 'consultation', 'mixed')),
     accident_type TEXT,
     fault_ratio TEXT,
     severity_level TEXT CHECK(severity_level IN ('minor', 'moderate', 'severe')),
+    legal_violations TEXT,                    -- JSON: 위반 법규 리스트
+    recommended_actions TEXT,                 -- JSON: 권장 조치사항
     party_role TEXT CHECK(party_role IN ('perpetrator', 'victim', 'witness', 'neutral')),
-    fine_amount INTEGER,
-    imprisonment_period TEXT,
-    driver_license_points INTEGER,
-    analysis_confidence REAL
+    settlement_amount INTEGER DEFAULT 0,      -- 예상 합의금
+    apology_needed BOOLEAN DEFAULT FALSE,     -- 반성문 필요 여부
+    applicable_laws TEXT,                     -- JSON: 적용 법률 조항
+    fine_amount INTEGER DEFAULT 0,           -- 예상 벌금
+    imprisonment_period TEXT,                 -- 예상 징역기간
+    driver_license_points INTEGER DEFAULT 0, -- 운전면허 벌점
+    analysis_confidence REAL DEFAULT 0.0,    -- 분석 신뢰도 (0.0~1.0)
+    raw_analysis_json TEXT,                  -- 원본 GPT 분석 결과
+    analyzed_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (conversation_id) REFERENCES conversations(id)
 );
 
--- 업로드된 문서 관리
-CREATE TABLE documents (
-    id INTEGER PRIMARY KEY,
-    filename TEXT,
-    filetype TEXT,
-    filesize INTEGER,
-    chunk_count INTEGER,
-    processing_time REAL,
-    file_hash TEXT
+-- 📄 업로드 문서 관리 테이블 (14개 필드)
+CREATE TABLE IF NOT EXISTS documents (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    filename TEXT NOT NULL,
+    original_filename TEXT NOT NULL,
+    file_type TEXT NOT NULL,
+    file_size INTEGER,
+    encoding TEXT,                           -- 파일 인코딩 (UTF-8, CP949 등)
+    uploaded_by INTEGER,
+    upload_date DATETIME DEFAULT CURRENT_TIMESTAMP,
+    processed BOOLEAN DEFAULT FALSE,         -- 처리 완료 여부
+    chunk_count INTEGER DEFAULT 0,          -- 생성된 청크 수
+    processing_status TEXT DEFAULT 'pending', -- pending/completed/failed
+    error_message TEXT,                      -- 처리 오류 메시지
+    processing_time REAL DEFAULT 0.0,       -- 처리 시간(초)
+    file_hash TEXT,                          -- 파일 중복 검사용 해시
+    FOREIGN KEY (uploaded_by) REFERENCES users(id)
+);
+
+-- 📚 RAG용 문서 청크 테이블 (6개 필드)
+CREATE TABLE IF NOT EXISTS document_chunks (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    document_id INTEGER,
+    chunk_index INTEGER,                     -- 청크 순서
+    chunk_text TEXT,                         -- 실제 텍스트 내용
+    chunk_size INTEGER,                      -- 청크 크기(문자수)
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (document_id) REFERENCES documents(id)
 );
 ```
 
@@ -336,8 +394,8 @@ CREATE TABLE documents (
 - **평균 근접도**: 실제 과실비율과 예측값의 평균 오차율 기반  
 - **과실비율 응답률**: 과실비율을 정확히 응답한 비율  
 - **개선 효과**:  
-  - No_RAG 대비 **7%p** 향상 (평균 근접도)  
-  - 법무법인 OO 대비 **2%p** 향상 (평균 근접도)  
+  - No_RAG 대비 **7%p** 향상 (평균 근접도)
+  - 법무법인 OO 대비 **2%p** 향상 (평균 근접도)
   - 법무법인 OO 대비 **40%p** 향상 (응답률)
 
 #### 🔍 상세 검증 사례 (상위 10건 근접도)
