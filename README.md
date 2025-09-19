@@ -349,7 +349,15 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 * 관계: 5개 외래키 관계
 * 제약조건: 8개 CHECK 제약
 
-## 8. 검증 및 성능 평가
+## 8. 챗문철
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/c446da54-ec06-4dae-9e4f-674c9fa67a26" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/48be1e0d-de74-46a3-ad10-d48384ed34e6" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/d9f77a6e-a582-48a3-92a0-3ee68aad25de" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/24f6a8bd-fe3c-4288-8592-bcd2bbdbd825" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/3837003e-80e7-4354-bf9d-76ea3ba12efb" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/02ddaec5-3fdd-49ab-b9d0-e83465b8fcdb" />
+
+## 9. 검증 및 성능 평가
 📈 PDF 텍스트 추출 성능 비교 (코사인 유사도)
 | 추출 도구                | 전체 일치도(코사인 유사도) | 텍스트 일치도(코사인 유사도) | 이미지·표 일치도(코사인 유사도) |
 |:-----------------------|:--------------------------:|:----------------------------:|:-------------------------------:|
@@ -379,6 +387,10 @@ CREATE TABLE IF NOT EXISTS document_chunks (
   - 법무법인 OO 대비 **7%p** 향상 (평균 근접도)
   - 법무법인 OO 대비 **40%p** 향상 (응답률)
 
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/631c5b74-8db9-4a7b-8815-b9fe1188ab57" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/96fecbe5-2a40-4baa-bc9b-346e842dde95" />
+<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/30699da8-97f7-44dd-ae18-0bc9d4a279e9" />
+
 🔍 검증 방법론
 * 평가 기준: 실제 과실비율과 예측값의 오차율 기반 근접도 측정
 * 테스트 케이스: 10건의 실제 교통사고 사례
@@ -386,7 +398,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
  
 <img width="2323" height="1206" alt="image" src="https://github.com/user-attachments/assets/318cc4f2-60c5-43e8-b480-186ce8e2fd26" />
 
-## 9. 주요 기능 및 차별점
+## 10. 주요 기능 및 차별점
 🎭 한문철 변호사 페르소나
 * 화법 특징: 직설적이고 실무적인 조언
 * 전문성: 교통사고 판례 및 법규 기반 답변
@@ -441,7 +453,7 @@ Gradio 웹 인터페이스 특징
 * API 호출 실패: 기본 응답으로 서비스 연속성 보장
 * 파일 처리 오류: 개별 파일 격리 처리
 
-## 10. 코드 하이라이트
+## 11. 코드 하이라이트
 🔄 적응형 텍스트 분할기
 ```python
 def choose_optimal_splitter(self, content_length: int) -> RecursiveCharacterTextSplitter:
@@ -474,7 +486,7 @@ response = self.client.chat.completions.create(
 )
 ```
 
-## 11. 프로젝트 성과 및 차별점
+## 12. 프로젝트 성과 및 차별점
 
 📊 비교 우위
 |기존 서비스|	챗문철|
@@ -487,7 +499,7 @@ response = self.client.chat.completions.create(
 |응답률 60%|응답률 100%|
 |일반 챗봇	|한문철 페르소나|
 
-## 12. 확장성
+## 13. 확장성
 🚀 단기
 * 모바일 최적화: React Native 기반 앱 개발
 * 음성 인터페이스: STT/TTS 기능 추가
