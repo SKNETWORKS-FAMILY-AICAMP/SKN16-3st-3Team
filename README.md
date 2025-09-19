@@ -333,6 +333,3 @@ response = self.client.chat.completions.create(
 * 변호사 매칭: 실제 변호사 연결 서비스
 * 판례 DB 확장: 대법원 판례 자동 수집
 * AI 모델 고도화: 자체 법률 특화 모델 개발
-
-## 13. 라이선스
-이 프로젝트는 MIT 라이선스 하에 배포됩니다.
