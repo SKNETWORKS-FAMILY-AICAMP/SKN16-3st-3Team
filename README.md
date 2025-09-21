@@ -176,7 +176,7 @@ graph TD
 ---
 
 ## 6. 핵심 기술 상세
-🤖 AI 모델 구성
+✅ **AI 모델 구성**
 |용도|	모델|	Temperature|	Max Tokens|	특징|
 | :---: | :---: | :---: | :---: | :---: |
 |메인 대화|	GPT-4o|	0.2|	1,800	|한문철 페르소나, 법률 상담|
@@ -184,12 +184,12 @@ graph TD
 |요약 생성|	GPT-4o|	0.2	|기본값	|마크다운 형식 요약|
 |이미지 분석|	GPT-4o Vision|	-	|500	|사고 현장 이미지 분석|
 
-🎭 한문철 페르소나 특징
+👥 **챗문철 페르소나 특징**
 * 어조: 정중하고 전문적이면서도 친근한 존댓말
 * 전문분야: 도로교통법, 과실비율 판정, 음주운전, 교통사고 처리절차
 * 응답 스타일: 법적 근거 명시 + 구체적 과실비율 제시
 
-📊 데이터베이스 스키마
+📊 **데이터베이스 스키마**   
 SQLite3 테이블 구조 (6개 테이블)
 |테이블명	|용도|	주요 필드|
 | :---: | :---: | :---: |
@@ -200,7 +200,7 @@ SQLite3 테이블 구조 (6개 테이블)
 |documents|	업로드 문서|	filename, file_type, chunk_count, processing_time|
 |document_chunks|	RAG용 청크|	document_id, chunk_text, chunk_index|
 
-🔍 14개 사건 분석 항목
+🔍 **14개 사건 분석 항목**
 |분류|	항목|	설명	|데이터 타입|
 | :---: | :---: | :---: | :---: |
 |기본 정보	|case_type|	criminal/civil/consultation/mixed|	ENUM|
@@ -218,16 +218,15 @@ SQLite3 테이블 구조 (6개 테이블)
 ||apology_needed	|반성문 필요 여부|	BOOLEAN|
 ||analysis_confidence	|분석 신뢰도 (0.0~1.0) |REAL|
 
-🔧 핵심 기술 구현
-📚 최적화된 RAG 시스템
-적응형 청킹 전략
+✅ **핵심 기술 구현**   
+최적화된 RAG 시스템
 |전략|	청크 크기|오버랩|	적용 조건|
 | :---: | :---: | :---: | :---: |
 |Small|	600자|	80자	|5,000자 미만 문서|
 |Medium	|1,000자|	120자	|5,000~20,000자 문서|
 |Large|	1,500자|	200자	|20,000자 이상 문서|
 
-ChromaDB 설정
+✅ **ChromaDB 설정**
 ```python
 vectorstore_config = {
     "persist_directory": "./chroma_db_redesigned",
@@ -237,20 +236,22 @@ vectorstore_config = {
 }
 ```
 
-🌐 다국어 인코딩 지원
+🌐 **다국어 인코딩 지원**
 * 지원 인코딩: UTF-8, CP949, EUC-KR, ASCII
 * 자동 감지: chardet + 한국어 패턴 매칭
 * 신뢰도 임계값: 0.7 이상
 * 다단계 시도: 4가지 인코딩 순차 시도
 
-⚡ 성능 최적화
+⚡ **성능 최적화**
 * 병렬 문서 처리: ThreadPoolExecutor 4 워커
 * 스트리밍 파일 읽기: 메모리 효율성 (100MB 지원)
 * 배치 벡터 저장: 50개 청크 단위 처리
 * 중복 콘텐츠 필터링: 해시 기반 중복 제거
 
+---
+
 ## 7. 데이터베이스 스키마
-📊 SQLite 데이터베이스 구조 (6개 테이블, 66개 필드)
+📊 **SQLite 데이터베이스 구조 (6개 테이블, 66개 필드)**
 ```sql
 -- 👥 사용자 관리 테이블 (7개 필드)
 CREATE TABLE IF NOT EXISTS users (
@@ -342,20 +343,54 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 );
 ```
 
-📈 데이터베이스 통계
+📈 **데이터베이스 통계**
 * 총 테이블: 6개
 * 총 필드: 66개
 * 핵심 분석 항목: 17개 (case_analysis 테이블)
 * 관계: 5개 외래키 관계
 * 제약조건: 8개 CHECK 제약
 
-## 8. 챗문철
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/c446da54-ec06-4dae-9e4f-674c9fa67a26" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/48be1e0d-de74-46a3-ad10-d48384ed34e6" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/d9f77a6e-a582-48a3-92a0-3ee68aad25de" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/24f6a8bd-fe3c-4288-8592-bcd2bbdbd825" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/3837003e-80e7-4354-bf9d-76ea3ba12efb" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/02ddaec5-3fdd-49ab-b9d0-e83465b8fcdb" />
+---
+
+## 8. 챗문철 화면 구성
+
+### I. 시작 화면
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/8a80746b-582b-4f03-ac5c-c0276f321b19" alt="로그인" width="350"/></td>
+    <td><img src="https://github.com/user-attachments/assets/27367343-d2ac-47b0-8e86-f7ab2c8d6fa7" alt="회원가입" width="350"/></td>
+  </tr>
+  <tr>
+    <td align="center">로그인</td>
+    <td align="center">회원가입</td>
+  </tr>
+</table>
+
+### II. AI 상담
+<img width="1030" height="561" alt="AI 상담" src="https://github.com/user-attachments/assets/81966e95-bc86-4ddd-9395-328253b79a89" />
+
+### III. 이미지 + 텍스트
+<img width="1089" height="392" alt="이미지+텍스트" src="https://github.com/user-attachments/assets/83d2683f-f269-46c0-b0e1-8ffc8b818ee9" />
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/20048b01-7712-456b-88d1-5f119dd8a448" alt="1" width="250"/></td>
+    <td><img src="https://github.com/user-attachments/assets/a8cc7749-8f1d-4e35-ac0b-2d4e4b2d95c9" alt="2" width="250"/></td>
+    <td><img src="https://github.com/user-attachments/assets/d9f8a868-21f4-4a79-9dfb-0982da7eabbf" alt="3" width="250"/></td>
+    <td><img src="https://github.com/user-attachments/assets/8f5baedb-4c98-421f-9f7a-81e56341d182" alt="4" width="250"/></td>
+  </tr>
+</table>   
+
+### IV. 대화 요약
+<img width="705" height="563" alt="대화요약" src="https://github.com/user-attachments/assets/f2eca9a8-6156-4338-afcf-40dbe811593a" />
+
+### V. 문서 관리
+<img width="549" height="563" alt="문서관리" src="https://github.com/user-attachments/assets/1baf06ea-8885-4a24-abec-533a08435c88" />
+
+### VI. 사용자 관리
+<img width="1290" height="494" alt="사용자관리" src="https://github.com/user-attachments/assets/c7f6335d-19b4-49d0-870c-0a4fc132ba50" />
+
+---
+
 
 ## 9. 검증 및 성능 평가
 📈 PDF 텍스트 추출 성능 비교 (코사인 유사도)
