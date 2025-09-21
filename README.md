@@ -395,19 +395,26 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 ## 9. 검증 및 성능 평가
 
 ### ✅ PDF 텍스트 추출 성능 비교 (코사인 유사도)
+<img src="https://github.com/user-attachments/assets/c124434c-2d0d-4d24-9fa9-9f1f1086670b" alt="추출 비교" width="900"/>  
 
-| 추출 도구                | 전체 일치도(코사인 유사도) | 텍스트 일치도(코사인 유사도) | 이미지·표 일치도(코사인 유사도) |
+#### TEXT  
+<img src="https://github.com/user-attachments/assets/75ef00a5-4985-4759-9a9d-427f73e6cbc2" alt="텍스트" width="900"/>  
+
+#### IMAGE  
+<img src="https://github.com/user-attachments/assets/8d832ad6-02b6-48a8-a669-01fb95aac166" alt="이미지" width="900"/>  
+
+#### TABLE  
+<img src="https://github.com/user-attachments/assets/691e29b2-5977-44f7-b526-e5100ba13863" alt="테이블" width="900"/>  
+
+| 추출 도구              | 전체 일치도(코사인 유사도) | 텍스트 일치도(코사인 유사도) | 이미지·표 일치도(코사인 유사도) |
 |:-----------------------|:--------------------------:|:----------------------------:|:-------------------------------:|
 | **ChatGPT (GPT-4o)**   |          **0.9971**        |          **0.9979**          |           **0.9946**            |
-| PyMuPDF                 |           0.9681           |           0.9752             |            0.9488               |
-| Plumber                 |           0.9678           |           0.9885             |            0.9103               |
-| PyPDF                   |           0.8541           |           0.9112             |            0.7025               |
+| PyMuPDF                |           0.9681           |           0.9752             |            0.9488               |
+| Plumber                |           0.9678           |           0.9885             |            0.9103               |
+| PyPDF                  |           0.8541           |           0.9112             |            0.7025               |
 
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/3d1edeaa-d755-4f0a-b630-e4f0ca1df932" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/f7e6acf4-7e3f-469d-a3be-e56bc7c1fa22" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/101898c4-d575-4f18-b5a1-b18a00626b3f" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/a750937d-7c9c-4145-a0fa-04c6ca15aa78" />
-<img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/b46e870e-0e32-4b57-bd88-7cc33a49c92e" />
+
+
 
 ### ✅ 과실비율 예측 검증
 
