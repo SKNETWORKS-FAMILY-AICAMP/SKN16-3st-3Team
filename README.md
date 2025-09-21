@@ -176,7 +176,7 @@ graph TD
 ---
 
 ## 6. 핵심 기술 상세
-✅ **AI 모델 구성**
+**AI 모델 구성**
 |용도|	모델|	Temperature|	Max Tokens|	특징|
 | :---: | :---: | :---: | :---: | :---: |
 |메인 대화|	GPT-4o|	0.2|	1,800	|한문철 페르소나, 법률 상담|
@@ -218,7 +218,7 @@ SQLite3 테이블 구조 (6개 테이블)
 ||apology_needed	|반성문 필요 여부|	BOOLEAN|
 ||analysis_confidence	|분석 신뢰도 (0.0~1.0) |REAL|
 
-✅ **핵심 기술 구현**   
+**핵심 기술 구현**   
 최적화된 RAG 시스템
 |전략|	청크 크기|오버랩|	적용 조건|
 | :---: | :---: | :---: | :---: |
@@ -226,7 +226,7 @@ SQLite3 테이블 구조 (6개 테이블)
 |Medium	|1,000자|	120자	|5,000~20,000자 문서|
 |Large|	1,500자|	200자	|20,000자 이상 문서|
 
-✅ **ChromaDB 설정**
+**ChromaDB 설정**
 ```python
 vectorstore_config = {
     "persist_directory": "./chroma_db_redesigned",
@@ -393,7 +393,9 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 
 
 ## 9. 검증 및 성능 평가
-📈 PDF 텍스트 추출 성능 비교 (코사인 유사도)
+
+### ✅ PDF 텍스트 추출 성능 비교 (코사인 유사도)
+
 | 추출 도구                | 전체 일치도(코사인 유사도) | 텍스트 일치도(코사인 유사도) | 이미지·표 일치도(코사인 유사도) |
 |:-----------------------|:--------------------------:|:----------------------------:|:-------------------------------:|
 | **ChatGPT (GPT-4o)**   |          **0.9971**        |          **0.9979**          |           **0.9946**            |
@@ -407,7 +409,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/a750937d-7c9c-4145-a0fa-04c6ca15aa78" />
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/b46e870e-0e32-4b57-bd88-7cc33a49c92e" />
 
-### ⚖️ 과실비율 예측 검증
+### ✅ 과실비율 예측 검증
 
 | 구분        | 평균 근접도(%) | 과실비율 응답률(%) |법률 정확도|
 |:-----------|:--------------:|:-----------------:|:-----------------:|
@@ -426,70 +428,75 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/96fecbe5-2a40-4baa-bc9b-346e842dde95" />
 <img width="2400" height="1350" alt="image" src="https://github.com/user-attachments/assets/30699da8-97f7-44dd-ae18-0bc9d4a279e9" />
 
-🔍 검증 방법론
+### ✅ 검증 방법론 비교분석
 * 평가 기준: 실제 과실비율과 예측값의 오차율 기반 근접도 측정
 * 테스트 케이스: 10건의 실제 교통사고 사례
 * 비교 대상: No_RAG vs 법무법인 텍스트 상담 vs 챗문철(RAG)
  
 <img width="2323" height="1206" alt="image" src="https://github.com/user-attachments/assets/318cc4f2-60c5-43e8-b480-186ce8e2fd26" />
 
+---
+
+
 ## 10. 주요 기능 및 차별점
-🎭 한문철 변호사 페르소나
+🎭 **한문철 변호사 페르소나**
 * 화법 특징: 직설적이고 실무적인 조언
 * 전문성: 교통사고 판례 및 법규 기반 답변
 * 사용자 맞춤: 가해자/피해자 입장별 차별화된 조언
 
-🔍 지능형 사건 분석
+🔍 **지능형 사건 분석**
 * 자동 분류: 형사/민사/상담/복합 사건 구분
 * 과실비율 산정: 사고 상황 기반 과실비율 예측
 * 처벌 수위 예상: 벌금액, 면허점수, 구형량 추정
 * 신뢰도 점수: 분석 결과의 확실성 수치화
 
-📊 관리자 대시보드
+📊 **관리자 대시보드**
 * 상담 통계: 일별/월별 상담 현황
 * 사건 분석: 사고 유형별 통계
 * 문서 관리: 업로드된 법령/판례 현황
 * Excel 내보내기: 상담 데이터 분석용 엑셀 파일 생성
 
-🖼️ 멀티모달 분석
+🖼️ **멀티모달 분석**
 * 사고 현장 분석: 사진을 통한 상황 파악
 * 손상 정도 평가: 차량 파손 수준 분석
 * 증거 자료 검토: 블랙박스, CCTV 영상 분석
 
-🏆 핵심 차별점
+🏆 **핵심 차별점**
 * 업계 최고 과실비율 예측 정확도: 97% 근접도 달성
 * 완전한 사건 분석: 17개 항목 자동 추출 및 분석
 * 멀티모달 지원: 텍스트 + 이미지 종합 분석
 * 실서비스 수준: 66개 필드 완전 DB 설계
 
-🎨 사용자 인터페이스
+🎨 **사용자 인터페이스**
 Gradio 웹 인터페이스 특징
 * 모던 디자인: 필렛 아이콘 기반 미니멀 UI
 * 반응형 웹: 모바일/태블릿 최적화
 * 아바타 이미지: GPT 스타일 채팅 인터페이스
 * 3권한 시스템: Guest/Expert/Admin 차별화
 
-주요 기능별 탭
+**주요 기능별 탭**
 * 💬 AI 상담: 실시간 채팅 + 이미지 첨부
 * 📋 대화 요약: 14개 항목 분석 + 마크다운 요약
 * 📚 문서 관리: RAG용 문서 업로드 (관리자)
 * 👥 사용자 관리: 대화 통계 + Excel 내보내기 (관리자)
 
-🔐 보안 및 안전성
-보안 기능
+🔐 **보안 및 안전성**  
 * 비밀번호 보안: bcrypt 해싱 (salt 포함)
 * 세션 관리: UUID 기반 고유 세션
 * SQL 인젝션 방지: 파라미터 바인딩
 * 파일 검증: SHA256 해시 기반 중복 확인
 
-에러 핸들링
+**에러 핸들링**
 * JSON 파싱 복구: 정규식 백업 파싱
 * 인코딩 실패 대응: 다단계 인코딩 시도
 * API 호출 실패: 기본 응답으로 서비스 연속성 보장
 * 파일 처리 오류: 개별 파일 격리 처리
 
+---
+
+
 ## 11. 코드 하이라이트
-🔄 적응형 텍스트 분할기
+🔄  **적응형 텍스트 분할기**
 ```python
 def choose_optimal_splitter(self, content_length: int) -> RecursiveCharacterTextSplitter:
     if content_length < 5000:
@@ -500,7 +507,7 @@ def choose_optimal_splitter(self, content_length: int) -> RecursiveCharacterText
         return self.text_splitters['large']
 ```
 
-🌐 고급 인코딩 감지
+🌐 **고급 인코딩 감지**
 ```python
 def advanced_encoding_detection(self, filepath: str) -> Tuple[str, float]:
     # 한국어 패턴 매칭을 통한 정확한 인코딩 감지
@@ -511,7 +518,7 @@ def advanced_encoding_detection(self, filepath: str) -> Tuple[str, float]:
     # ... 구현 세부사항
 ```
 
-🤖 컨텍스트 기반 응답 생성
+🤖 **컨텍스트 기반 응답 생성**
 ```python
 response = self.client.chat.completions.create(
     model="gpt-4o",
@@ -521,9 +528,12 @@ response = self.client.chat.completions.create(
 )
 ```
 
+---
+
+
 ## 12. 프로젝트 성과 및 차별점
 
-📊 비교 우위
+✅ **비교 우위**
 |기존 서비스|	챗문철|
 | :---: | :---: |
 |일반적인 법률 정보|	교통사고 전문화|
@@ -534,14 +544,18 @@ response = self.client.chat.completions.create(
 |응답률 60%|응답률 100%|
 |일반 챗봇	|한문철 페르소나|
 
+---
+
+
 ## 13. 확장성
-🚀 단기
+✅ **단기**
 * 모바일 최적화: React Native 기반 앱 개발
 * 음성 인터페이스: STT/TTS 기능 추가
 * 실시간 알림: 판례 업데이트 자동 알림
 * 다국어 지원: 영어/중국어 서비스 확장
 * API 서비스: REST API 공개
-🔮 중장기
+  
+✅ **중장기**
 * 보험사 연동: 보험금 산정 자동화
 * 변호사 매칭: 실제 변호사 연결 서비스
 * 판례 DB 확장: 대법원 판례 자동 수집
