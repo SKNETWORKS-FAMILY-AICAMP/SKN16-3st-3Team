@@ -115,10 +115,6 @@ pip install -r requirements.txt
 # .env 파일 생성
 OPENAI_API_KEY="your_openai_api_key_here"
 ```
-### 시스템 실행
-```bash
-python src/app.py
-```
 ---
 
 ## 5. 시스템 아키텍처 및 처리 흐름
