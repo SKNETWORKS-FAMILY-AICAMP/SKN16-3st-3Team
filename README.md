@@ -102,22 +102,7 @@ ChatMoonCheol/
 ```
 ---
 
-## 4. 설치 및 실행
-
-### 환경설정
-```bash
-git clone https://github.com/Your-Username/ChatMoonCheol-Project.git
-cd ChatMoonCheol-Project
-pip install -r requirements.txt
-```
-### API 키 설정
-```bash
-# .env 파일 생성
-OPENAI_API_KEY="your_openai_api_key_here"
-```
----
-
-## 5. 시스템 아키텍처 및 처리 흐름
+## 4. 시스템 아키텍처 및 처리 흐름
 
 ### ✅ 시스템 아키텍처
 ChatMoonCheol은 RAG(Retrieval-Augmented Generation) 기반 구조로 설계됨
@@ -171,7 +156,7 @@ graph TD
 
 ---
 
-## 6. 핵심 기술 상세
+## 5. 핵심 기술 상세
 **AI 모델 구성**
 |용도|	모델|	Temperature|	Max Tokens|	특징|
 | :---: | :---: | :---: | :---: | :---: |
@@ -246,7 +231,7 @@ vectorstore_config = {
 
 ---
 
-## 7. 데이터베이스 스키마
+## 6. 데이터베이스 스키마
 📊 **SQLite 데이터베이스 구조 (6개 테이블, 66개 필드)**
 ```sql
 -- 👥 사용자 관리 테이블 (7개 필드)
@@ -348,7 +333,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 
 ---
 
-## 8. 챗문철 화면 구성
+## 7. 챗문철 화면 구성
 
 ### I. 시작 화면
 <table>
@@ -388,7 +373,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 ---
 
 
-## 9. 검증 및 성능 평가
+## 8. 검증 및 성능 평가
 
 ### ✅ PDF 텍스트 추출 성능 비교 (코사인 유사도)   
 코사인 유사도 기반으로 PDF의 텍스트, 이미지, 표를 가장 높은 성능으로 추출하는 라이브러리 선정
@@ -461,7 +446,7 @@ CREATE TABLE IF NOT EXISTS document_chunks (
 ---
 
 
-## 10. 주요 기능 및 차별점
+## 9. 주요 기능 및 차별점
 🎭 **한문철 변호사 페르소나**
 * 화법 특징: 직설적이고 실무적인 조언
 * 전문성: 교통사고 판례 및 법규 기반 답변
@@ -518,7 +503,7 @@ Gradio 웹 인터페이스 특징
 ---
 
 
-## 11. 코드 하이라이트
+## 10. 코드 하이라이트
 🔄  **적응형 텍스트 분할기**
 ```python
 def choose_optimal_splitter(self, content_length: int) -> RecursiveCharacterTextSplitter:
@@ -554,7 +539,7 @@ response = self.client.chat.completions.create(
 ---
 
 
-## 12. 프로젝트 성과 및 차별점
+## 11. 프로젝트 성과 및 차별점
 
 ✅ **비교 우위**
 |기존 서비스|	챗문철|
@@ -570,7 +555,7 @@ response = self.client.chat.completions.create(
 ---
 
 
-## 13. 확장성
+## 12. 확장성
 ✅ **단기**
 * 모바일 최적화: React Native 기반 앱 개발
 * 음성 인터페이스: STT/TTS 기능 추가
@@ -586,7 +571,7 @@ response = self.client.chat.completions.create(
  
 ---
 
-## 14. 고찰
+## 13. 고찰
 **팀 고찰**
 
 이 프로젝트에서 가장 중요한 기술적 의사결정은 한문철 변호사 페르소나를 어떻게 구현할 것인가였다. 단순한 법률 정보 제공 챗봇이 아닌, 실제 변호사의 화법과 논리 전개 방식을 모사하는 것이 핵심이었다. 이를 위해 temperature 0.2로 낮춰 일관성을 확보하면서도, system prompt에서 "직설적이고 실무적인 조언", "과실비율 명시" 등 구체적인 행동 패턴을 정의했다.
