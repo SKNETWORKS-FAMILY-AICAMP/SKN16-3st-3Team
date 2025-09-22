@@ -1,0 +1,36 @@
+# 챗문철 (ChatMoonCheol) - 완전한 의존성 목록
+
+# 🤖 AI & LLM 핵심
+openai>=1.12.0
+langchain>=0.1.10
+langchain-community>=0.0.25
+langchain-openai>=0.0.6
+tiktoken>=0.6.0
+
+# 🔍 벡터 데이터베이스 & 임베딩
+chromadb>=0.4.22
+
+# 🎨 웹 인터페이스
+gradio>=4.18.0
+
+# 📄 문서 처리
+pypdf>=4.0.1
+python-docx>=0.8.11
+python-dotenv>=1.0.1
+
+# 🖼️ 이미지 처리
+Pillow>=10.2.0
+
+# 📊 데이터 분석 & Excel
+pandas>=2.0.0
+openpyxl>=3.1.0
+
+# 🔐 보안 & 인코딩
+bcrypt>=4.0.1
+chardet>=5.0.0
+unidecode>=1.3.0
+
+# 📦 시스템 유틸리티 (내장 모듈 - 별도 설치 불필요)
+# sqlite3, pathlib, threading, concurrent.futures
+# json, base64, uuid, datetime, hashlib
+# os, sys, shutil, warnings, re
